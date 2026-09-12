@@ -1,0 +1,545 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>I'm Sorry 💌</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+
+            font-family: "Poppins", sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fce4ec,
+                    #f8d7e2,
+                    #fff5f7
+                );
+        }
+
+        /* Soft background glow */
+
+        body::before {
+            content: "";
+            position: absolute;
+
+            width: 450px;
+            height: 450px;
+
+            background: rgba(255, 255, 255, 0.4);
+
+            border-radius: 50%;
+
+            filter: blur(80px);
+        }
+
+        /* =========================
+           FLOATING HEARTS
+        ========================= */
+
+        .heart {
+            position: absolute;
+            bottom: -50px;
+
+            font-size: 22px;
+
+            color: #43b5e9;
+
+            opacity: 0;
+
+            animation: floatUp 8s infinite ease-in;
+        }
+
+        .heart:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .heart:nth-child(2) {
+            left: 25%;
+            animation-delay: 2s;
+        }
+
+        .heart:nth-child(3) {
+            left: 45%;
+            animation-delay: 4s;
+        }
+
+        .heart:nth-child(4) {
+            left: 70%;
+            animation-delay: 1s;
+        }
+
+        .heart:nth-child(5) {
+            left: 88%;
+            animation-delay: 5s;
+        }
+
+        @keyframes floatUp {
+
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.7;
+            }
+
+            100% {
+                transform:
+                    translateY(-110vh)
+                    rotate(360deg);
+
+                opacity: 0;
+            }
+        }
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+            position: relative;
+
+            z-index: 10;
+
+            text-align: center;
+        }
+
+        /* =========================
+           ENVELOPE
+        ========================= */
+
+        .envelope {
+            position: relative;
+
+            width: 380px;
+            height: 300px;
+
+            cursor: pointer;
+
+            transition: 0.5s ease;
+        }
+
+        .envelope:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Envelope body */
+
+        .envelope-body {
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            background: #e99aaa;
+
+            border-radius: 8px;
+
+            box-shadow:
+                0 20px 40px
+                rgba(130, 70, 85, 0.25);
+
+            z-index: 2;
+        }
+
+        /* Left fold */
+
+        .envelope-body::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: 0;
+
+            border-left: 180px solid #d98194;
+
+            border-top: 125px solid transparent;
+            border-bottom: 125px solid transparent;
+
+            z-index: 3;
+        }
+
+        /* Right fold */
+
+        .envelope-body::after {
+            content: "";
+
+            position: absolute;
+
+            right: 0;
+            bottom: 0;
+
+            border-right: 180px solid #d98194;
+
+            border-top: 125px solid transparent;
+            border-bottom: 125px solid transparent;
+
+            z-index: 3;
+        }
+
+        /* =========================
+           LETTER
+        ========================= */
+
+        .letter {
+            position: absolute;
+
+            width: 330px;
+            height: 280px;
+
+            left: 25px;
+            top: 15px;
+
+            padding: 25px;
+
+            background: #fffdfd;
+
+            border-radius: 6px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(100, 50, 60, 0.15);
+
+            z-index: 1;
+
+            overflow: scroll;
+
+            transition:
+                transform 1s ease,
+                box-shadow 1s ease;
+                justify-content: center;
+        }
+
+        .letter h1 {
+            font-family: "Playfair Display", serif;
+
+            color: #c95770;
+
+            font-size: 32px;
+
+            margin-bottom: 15px;
+        }
+
+        .letter p {
+            color: #666;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            margin-bottom: 10px;
+        }
+
+        .signature {
+            margin-top: 15px;
+
+            text-align: right;
+
+            color: #c95770 !important;
+
+            font-family: "Playfair Display", serif;
+        }
+
+        /* =========================
+           ENVELOPE FLAP
+        ========================= */
+
+        .flap {
+            position: absolute;
+
+            width: 0;
+            height: 0;
+
+            left: 0;
+            top: 0;
+
+            border-left: 180px solid transparent;
+            border-right: 180px solid transparent;
+
+            border-top: 135px solid #f1a7b5;
+
+            transform-origin: top;
+
+            transition: 0.8s ease;
+
+            z-index: 5;
+        }
+
+        /* =========================
+           HEART SEAL
+        ========================= */
+
+        .seal {
+            position: absolute;
+
+            top: 105px;
+            left: 158px;
+
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #c95770;
+
+            border-radius: 50%;
+
+            color: white;
+
+            font-size: 22px;
+
+            z-index: 6;
+
+            box-shadow:
+                0 5px 15px
+                rgba(150, 50, 70, 0.3);
+
+            transition: 0.5s ease;
+        }
+
+        /* =========================
+           INSTRUCTION
+        ========================= */
+
+        .instruction {
+            margin-top: 30px;
+
+            color: #9b6471;
+
+            font-size: 14px;
+
+            letter-spacing: 1px;
+
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* =========================
+           OPEN ENVELOPE
+        ========================= */
+
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+
+            z-index: 1;
+        }
+
+        .envelope.open .letter {
+            transform: translateY(-190px);
+
+            z-index: 4;
+
+            box-shadow:
+                0 15px 40px
+                rgba(100, 50, 60, 0.2);
+        }
+
+        .envelope.open .seal {
+            opacity: 0;
+
+            transform: scale(0);
+        }
+
+        .envelope.open {
+            margin-top: 150px;
+        }
+
+        .envelope.open:hover {
+            transform: translateY(0);
+        }
+
+        /* =========================
+           MOBILE RESPONSIVE
+        ========================= */
+
+        @media (max-width: 500px) {
+
+            .envelope {
+                width: 320px;
+                height: 220px;
+            }
+
+            .envelope-body::before {
+                border-left-width: 160px;
+
+                border-top-width: 110px;
+                border-bottom-width: 110px;
+            }
+
+            .envelope-body::after {
+                border-right-width: 160px;
+
+                border-top-width: 110px;
+                border-bottom-width: 110px;
+            }
+
+            .flap {
+                border-left-width: 160px;
+                border-right-width: 160px;
+
+                border-top-width: 120px;
+            }
+
+            .letter {
+                width: 280px;
+
+                left: 20px;
+            }
+
+            .seal {
+                left: 138px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating hearts -->
+
+    <div class="heart">♡</div>
+    <div class="heart">♡</div>
+    <div class="heart">♥</div>
+    <div class="heart">♡</div>
+    <div class="heart">♡</div>
+    <div class="heart">♡</div>
+    <div class="heart">♥</div>
+    <div class="heart">♡</div>
+
+
+
+    <!-- Main Card -->
+
+    <div class="container">
+
+        <div
+            class="envelope"
+            onclick="openEnvelope()"
+        >
+
+            <!-- =====================
+                 LETTER
+            ====================== -->
+
+            <div class="letter">
+                    Dear RYAN,
+                </p>
+
+                <p>
+                    Hope okay raka diraa, miss na tika 
+                    unta wala ka ga pa lipas ug gutom 
+                    amping always.Take good care always ha, If masakit ayaw kalimot sa tambal
+                    mag sige ka ug tupad sa imong tungkulin ha
+                    kauban japon ka sa akong mga panata po.
+
+                </p>
+
+                <p>
+                     I know we ended up not in good terms but I was lucky to have you
+                   although 4 months lang ta. I know I made a lot of mistakes and miskan wala 
+                   tika gi force sa tanan, pero kabalo jud ko na wala pajud ka naka move on sa iya
+                   but I saw it in your eyes po eh. napugos raka sa tanan nahitabo.
+                </p>
+
+                <p>
+                     Wala nko mag expect na ma forgive ko nimo sa akong gi buhat po,
+                    pero unta kabalo ka kung unsa tika ka love sa atong 4 months.
+                    If you need me or any emergency po you can always call namn sa number ko.
+                    But the real purpose of me creating this is just to let you know na BULOK KA SA PART NA IMO RAKONG GI SAYANGAN EVEN THE CHANCES I GAVE BUT, I DON'T HATE YOU PO 
+                    I understand what you've been through also maong if you have problems please ayaw ka ulaw sa akoa... miskan mo ingon paka dira na dili nataclose or dili nata friends 
+                    worried ko sa imoha as always. Wala ko nag regret na ikaw ang first bf nko na nakakuha sa akong first kiss. Greatful sab ko kay naging kita....
+                    I LOVE AND MISS YOU PO!💗💗💗
+                </p>
+
+                <p class="signature">
+                    Take Care always.💗
+                    <br>
+                    — Bea💗💗
+                </p>
+
+            </div>
+
+
+            <!-- =====================
+                 ENVELOPE BODY
+            ====================== -->
+
+            <div class="envelope-body"></div>
+
+
+            <!-- =====================
+                 ENVELOPE FLAP
+            ====================== -->
+
+            <div class="flap"></div>
+
+
+            <!-- =====================
+                 HEART SEAL
+            ====================== -->
+
+            <div class="seal">
+                ♥
+            </div>
+
+        </div>
+
+
+        <!-- Instruction -->
+
+        <div class="instruction">
+            Click the envelope to open 💌
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        function openEnvelope() {
+
+            const envelope =
+                document.querySelector(".envelope");
+
+            envelope.classList.toggle("open");
+
+        }
+
+    </script>
+
+</body>
+</html>
+```
